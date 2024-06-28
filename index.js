@@ -6,17 +6,27 @@ const passport = require("passport");
 
 const mongoose = require('mongoose');
 
+// Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/digidoc', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
+  
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((error) => {
+  console.error('Connection error:', error);
 });
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Connected to MongoDB');
-});
+
+//mongoose.connect('mongodb://localhost:27017/digidoc', {
+  //useNewUrlParser: true,
+  //useUnifiedTopology: true,
+  //useCreateIndex: true
+//});
+
+//const db = mongoose.connection;
+//db.on('error', console.error.bind(console, 'connection error:'));
+//db.once('open', function() {
+  //console.log('Connected to MongoDB');
+//});
 
 // Configuring Express Application.
 const app = express();

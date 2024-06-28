@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 
 function Submit() {
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const history = useHistory();
+  const history = useNavigate();
 
   const [documentName, setDocumentName] = useState("");
   const [documentBody, setDocumentBody] = useState("");

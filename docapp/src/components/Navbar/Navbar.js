@@ -1,16 +1,15 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import ExitToApp from "@material-ui/icons/ExitToApp";
-import ChangeNavbar from "./NavbarLogic";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import ExitToApp from "@mui/icons-material/ExitToApp";
 import "./Navbar.css";
 
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { blueGrey } from "@material-ui/core/colors";
+import { createMuiTheme, ThemeProvider } from "@mui/material/styles";
+import { blueGrey } from "@mui/material/colors";
 
 const outerTheme = createMuiTheme({
   palette: {
@@ -46,13 +45,13 @@ function NotLoggedIn() {
   const classes = useStyles();
 
   return [
-    <Link className={classes.link} to="/login">
+    <Link key="login" className={classes.link} to="/login">
       <Button className={classes.button} color="inherit">
         Login
       </Button>
     </Link>,
 
-    <Link className={classes.link} to="/register">
+    <Link key="register" className={classes.link} to="/register">
       <Button className={classes.button} color="inherit">
         Register
       </Button>
@@ -67,12 +66,12 @@ function LoggedIn() {
     window.location.href = "/";
   };
   return [
-    <Link className={classes.link} to="/documents">
+    <Link key="documents" className={classes.link} to="/documents">
       <Button className={classes.button} color="inherit">
         Documents
       </Button>
     </Link>,
-    <IconButton onClick={logout} aria-label="delete" className={classes.logout}>
+    <IconButton key="logout" onClick={logout} aria-label="logout" className={classes.logout}>
       <ExitToApp fontSize="medium" />
     </IconButton>,
   ];
@@ -80,7 +79,7 @@ function LoggedIn() {
 
 function Navbar() {
   const classes = useStyles();
-  const loggedIn = localStorage.getItem("id_token") ? true : false;
+  const loggedIn = Boolean(localStorage.getItem("id_token"));
 
   return (
     <ThemeProvider theme={outerTheme}>
@@ -94,8 +93,8 @@ function Navbar() {
               Home
             </Button>
           </Link>
-          {loggedIn == false && <NotLoggedIn />}
-          {loggedIn == true && <LoggedIn />}
+          {!loggedIn && <NotLoggedIn />}
+          {loggedIn && <LoggedIn />}
         </Toolbar>
       </AppBar>
     </ThemeProvider>

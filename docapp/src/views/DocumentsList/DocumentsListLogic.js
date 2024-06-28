@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 
@@ -8,7 +8,7 @@ function Submit() {
   const [content, setContent] = useState("");
   const [documents, setDocuments] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
-  const history = useHistory();
+  const history = useNavigate();
 
   const handleNameChange = (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ function Submit() {
       token: localStorage.getItem("id_token"),
     };
     axios
-      .get("http://localhost:5000/documents/", { params: obj })
+      .get("http://localhost:3000/documents/", { params: obj })
       .then((response) => {
         if (response.data.success) {
           let newArr = [...response.data.documents];
